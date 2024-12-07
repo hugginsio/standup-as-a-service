@@ -1,0 +1,13 @@
+[package]
+name = "feature-flags"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = "0.7.9"
+env_filter = "0.1.2"
+rand = "0.8.5"
+serde = { version = "1.0.215", features = ["derive"] }
+tokio = { version = "1.42.0", features = ["full"] }
+tracing = "0.1.41"
+tracing-subscriber = "0.3.19"
