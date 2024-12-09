@@ -1,0 +1,23 @@
+cron:
+  schedule: "*/1 * * * *"
+
+config:
+  email: kyle@huggins.io
+  name: kyle
+  organization: "https://dev.azure.com/hugginsio/"
+  pat: replace-in-overlay
+  query: dc071f51-5f14-4303-b69e-ca84dfaa4e75
+  redis: redis-master.default.svc.cluster.local
+  wiql: "SELECT [System.Id], [System.Title], [System.State], [System.AssignedTo] FROM workitems ORDER BY [System.ChangedDate] DESC"
+
+image:
+  repository: data-extractor
+  pullPolicy: IfNotPresent
+  tag: "local"
+
+resources:
+  requests:
+    cpu: 1m
+    memory: 16Mi
+  limits:
+    memory: 16Mi

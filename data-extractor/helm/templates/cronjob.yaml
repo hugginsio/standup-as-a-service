@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: "{{ include "helm.fullname" . }}-{{ .Values.config.name }}"
+  labels:
+    {{- include "helm.labels" . | nindent 4 }}
+spec:
+  concurrencyPolicy: Forbid
+  schedule: "{{ .Values.cron.schedule }}"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: {{ .Chart.Name }}
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+              imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+              envFrom:
+                - configMapRef:
+                    name: "{{ include "helm.fullname" . }}-{{ .Values.config.name }}"
+                - secretRef:
+                    name: "{{ include "helm.fullname" . }}-{{ .Values.config.name }}"
+          restartPolicy: OnFailure

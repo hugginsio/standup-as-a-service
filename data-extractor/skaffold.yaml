@@ -1,0 +1,27 @@
+apiVersion: skaffold/v4beta11
+kind: Config
+metadata:
+  name: data-extractor
+build:
+  local:
+    push: false
+  artifacts:
+    - image: data-extractor
+      docker:
+        dockerfile: Dockerfile
+        cacheFrom:
+          - data-extractor
+deploy:
+  helm:
+    releases:
+      - name: data-extractor
+        namespace: standup
+        createNamespace: true
+        chartPath: helm
+        valuesFiles:
+          - helm/values.yaml
+          - helm/overlays/values.local.yaml
+        setValueTemplates:
+          setValueTemplates:
+            image.repository: "{{.IMAGE_REPO_data_extractor}}"
+            image.tag: "{{.IMAGE_TAG_data_extractor}}@{{.IMAGE_DIGEST_data_extractor}}"

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: data-extractor
+description: "Extract standup data from ADO."
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

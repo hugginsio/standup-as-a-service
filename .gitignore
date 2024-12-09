@@ -1,2 +1,5 @@
 # Rust
 **/target/
+
+# Local Helm chart values w/ secrets
+**/values.local.yaml

@@ -1,0 +1,23 @@
+# Copyright Broadcom, Inc. All Rights Reserved.
+# SPDX-License-Identifier: APACHE-2.0
+
+global:
+  redis:
+    password: "redis"
+
+architecture: standalone
+
+auth:
+  enabled: false
+  sentinel: false
+  password: ""
+
+master:
+  persistence:
+    enabled: false
+  resources:
+    requests:
+      cpu: 25m
+      memory: 64Mi
+    limits:
+      memory: 64Mi
