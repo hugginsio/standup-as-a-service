@@ -1,0 +1,21 @@
+# Default values for listener.
+
+image:
+  repository: listener
+  pullPolicy: IfNotPresent
+  tag: "local"
+
+securityContext:
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+
+resources:
+  requests:
+    cpu: 1m
+    memory: 8Mi
+  limits:
+    memory: 8Mi

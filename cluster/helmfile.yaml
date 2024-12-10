@@ -1,0 +1,24 @@
+# https://helmfile.readthedocs.io/en/stable/
+# yaml-language-server: $schema=https://json.schemastore.org/helmfile.json
+
+helmDefaults:
+  wait: true
+  waitForJobs: true
+  timeout: 300
+  force: true
+
+repositories:
+  - name: metrics-server
+    url: "https://kubernetes-sigs.github.io/metrics-server/"
+releases:
+  - name: rabbitmq
+    namespace: standup
+    chart: "oci://registry-1.docker.io/bitnamicharts/rabbitmq"
+    version: 15.1.0
+    values:
+      - auth.password: rabbit
+      - auth.securePassword: false
+      - persistence.size: 4Gi
+      - resources.limits.memory: 256Mi
+      - resources.requests.cpu: 10m
+      - resources.requests.memory: 256Mi

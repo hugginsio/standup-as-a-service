@@ -11,7 +11,7 @@ RUN cargo build --release
 FROM alpine:3.21.0 AS deploy
 
 RUN apk add --no-cache catatonit
-COPY --from=build /app/target/release/feature-flags /app/feature-flags
+COPY --from=build /app/target/release/listener /app/listener
 
 USER nobody:nogroup
-ENTRYPOINT ["/usr/bin/catatonit", "--", "/app/feature-flags"]
+ENTRYPOINT ["/usr/bin/catatonit", "--", "/app/listener"]

@@ -1,20 +1,20 @@
 apiVersion: skaffold/v4beta11
 kind: Config
 metadata:
-  name: feature-flags
+  name: listener
 build:
   local:
     push: false
   artifacts:
-    - image: feature-flags
+    - image: listener
       docker:
         dockerfile: Dockerfile
         cacheFrom:
-          - feature-flags
+          - listener
 deploy:
   helm:
     releases:
-      - name: feature-flags
+      - name: listener
         namespace: standup
         createNamespace: true
         chartPath: helm

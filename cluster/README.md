@@ -1,17 +1,9 @@
 # cluster
 
 ```
-kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+minikube start --nodes=1 --memory=8192 --addons=dashboard,default-storageclass,metrics-server,storage-provisioner
+helmfile apply --skip-diff-on-install --suppress-diff
+kubectl get secret -n standup rmq-rabbitmq -o jsonpath='{.data.rabbitmq-password}' | base64 -d
 ```
 
-```
-helm install redis oci://registry-1.docker.io/bitnamicharts/redis -f redis.yaml
-```
-
-```
-helm repo add redisinsight https://mrnim94.github.io/redisinsight
-helm install redisinsight redisinsight/redisinsight
-```
-
-- `http://redisinsight.default.svc.cluster.local:5540`
-- `redis-master.default.svc.cluster.local:6379`
+- [http://rmq-rabbitmq.standup.svc.cluster.local:15672]

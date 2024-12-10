@@ -2,13 +2,16 @@ cron:
   schedule: "*/1 * * * *"
 
 config:
-  email: kyle@huggins.io
-  name: kyle
+  broker: rabbitmq.standup.svc.cluster.local
   organization: "https://dev.azure.com/hugginsio/"
   pat: replace-in-overlay
-  query: dc071f51-5f14-4303-b69e-ca84dfaa4e75
-  redis: redis-master.default.svc.cluster.local
-  wiql: "SELECT [System.Id], [System.Title], [System.State], [System.AssignedTo] FROM workitems ORDER BY [System.ChangedDate] DESC"
+  wiql: "SELECT [System.Id], [System.Title], [System.State], [System.AssignedTo] FROM workitems WHERE [System.AssignedTo] = '&user;' ORDER BY [System.ChangedDate] DESC"
+
+members:
+  - name: Kyle
+    id: Kyle Huggins <kyle@huggins.io>
+  - name: First
+    id: First Last <firstlast@huggins.io>
 
 image:
   repository: data-extractor
