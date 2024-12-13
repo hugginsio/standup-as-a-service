@@ -14,6 +14,6 @@ RUN cargo build --release --target aarch64-unknown-linux-musl
 
 FROM alpine:3.21.0 AS runtime
 RUN apk add --no-cache catatonit
-COPY --from=cook /app/target/aarch64-unknown-linux-musl/release/listener /usr/local/bin/listener
+COPY --from=cook /app/target/aarch64-unknown-linux-musl/release/standup-api /usr/local/bin/standup-api
 USER nobody:nogroup
-ENTRYPOINT ["/usr/bin/catatonit", "--", "/usr/local/bin/listener"]
+ENTRYPOINT ["/usr/bin/catatonit", "--", "/usr/local/bin/standup-api"]

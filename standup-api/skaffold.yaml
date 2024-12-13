@@ -1,0 +1,26 @@
+apiVersion: skaffold/v4beta11
+kind: Config
+metadata:
+  name: standup-api
+build:
+  local:
+    push: false
+  artifacts:
+    - image: standup-api
+      docker:
+        dockerfile: Dockerfile
+        cacheFrom:
+          - standup-api
+deploy:
+  helm:
+    releases:
+      - name: standup-api
+        namespace: standup
+        createNamespace: true
+        chartPath: helm
+        valuesFiles:
+          - helm/values.yaml
+        setValueTemplates:
+          setValueTemplates:
+            image.repository: "{{.IMAGE_REPO_feature_flags}}"
+            image.tag: "{{.IMAGE_TAG_feature_flags}}@{{.IMAGE_DIGEST_feature_flags}}"

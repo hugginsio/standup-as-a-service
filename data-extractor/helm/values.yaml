@@ -4,6 +4,7 @@ cron:
 config:
   broker: rabbitmq.standup.svc.cluster.local
   organization: "https://dev.azure.com/hugginsio/"
+  # NOTE: if this system wasn't a joke, this would be a secret reference
   pat: replace-in-overlay
   wiql: "SELECT [System.Id], [System.Title], [System.State], [System.AssignedTo] FROM workitems WHERE [System.AssignedTo] = '&user;' ORDER BY [System.ChangedDate] DESC"
 
@@ -20,7 +21,7 @@ image:
 
 resources:
   requests:
-    cpu: 1m
-    memory: 16Mi
+    cpu: 10m
+    memory: 32Mi
   limits:
-    memory: 16Mi
+    memory: 32Mi

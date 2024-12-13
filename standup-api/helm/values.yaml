@@ -1,9 +1,9 @@
-# Default values for feature-flags.
+# Default values for standup-api.
 
 replicaCount: 1
 
 image:
-  repository: feature-flags
+  repository: standup-api
   pullPolicy: IfNotPresent
   tag: "local"
 
@@ -21,16 +21,16 @@ service:
 
 resources:
   requests:
-    cpu: 1m
-    memory: 6Mi
+    cpu: 10m
+    memory: 32Mi
   limits:
-    memory: 6Mi
+    memory: 32Mi
 
 livenessProbe:
   httpGet:
-    path: "/where-do-i-put/1"
+    path: "/health"
     port: http
 readinessProbe:
   httpGet:
-    path: "/where-do-i-put/2"
+    path: "/health"
     port: http

@@ -1,0 +1,64 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/mongodbcommunity.mongodb.com/mongodbcommunity_v1.json
+apiVersion: mongodbcommunity.mongodb.com/v1
+kind: MongoDBCommunity
+metadata:
+  name: standup-modern
+spec:
+  members: 1
+  type: ReplicaSet
+  version: "8.0.4"
+  security:
+    authentication:
+      modes: ["SCRAM"]
+  users:
+    - name: standup
+      db: admin
+      passwordSecretRef:
+        name: mongodb-standup
+      roles:
+        - name: clusterAdmin
+          db: admin
+        - name: userAdminAnyDatabase
+          db: admin
+        - name: root
+          db: admin
+        - name: root
+          db: standup
+      scramCredentialsSecretName: standup
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/mongodbcommunity.mongodb.com/mongodbcommunity_v1.json
+apiVersion: mongodbcommunity.mongodb.com/v1
+kind: MongoDBCommunity
+metadata:
+  name: standup-legacy
+spec:
+  members: 1
+  type: ReplicaSet
+  version: "8.0.4"
+  security:
+    authentication:
+      modes: ["SCRAM"]
+  users:
+    - name: standup
+      db: admin
+      passwordSecretRef:
+        name: mongodb-standup
+      roles:
+        - name: clusterAdmin
+          db: admin
+        - name: userAdminAnyDatabase
+          db: admin
+        - name: root
+          db: admin
+        - name: root
+          db: standup
+      scramCredentialsSecretName: standup
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongodb-standup
+type: Opaque
+stringData:
+  password: mongodb

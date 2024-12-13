@@ -1,6 +1,10 @@
 # standup-as-a-service
 
-Inside joke for work.
+> **Rube Goldberg Machine**
+>
+> *adjective*
+>
+> A deliberately over-engineered system that performs a simple task through a convoluted chain of interactions.
 
 ```mermaid
 flowchart LR
@@ -22,4 +26,6 @@ flowchart LR
     ws<-->dbm
     ws<-->grafana[Grafana]
 ```
+
+If you read the code in this monorepo, please note that this system was written as an elaborate joke - and it was my first time working with Rust.
 
