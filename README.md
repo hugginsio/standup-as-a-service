@@ -1,6 +1,6 @@
 # standup-as-a-service
 
-> **Rube Goldberg Machine**
+> **Rube Goldberg**
 >
 > *adjective*
 >
@@ -28,4 +28,3 @@ flowchart LR
 ```
 
 If you read the code in this monorepo, please note that this system was written as an elaborate joke - and it was my first time working with Rust.
-
