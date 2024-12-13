@@ -11,8 +11,6 @@ config:
 members:
   - name: Kyle
     id: Kyle Huggins <kyle@huggins.io>
-  - name: First
-    id: First Last <firstlast@huggins.io>
 
 image:
   repository: data-extractor
@@ -21,7 +19,7 @@ image:
 
 resources:
   requests:
-    cpu: 10m
-    memory: 32Mi
+    cpu: 50m
+    memory: 64Mi
   limits:
-    memory: 32Mi
+    memory: 64Mi

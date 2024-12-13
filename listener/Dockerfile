@@ -8,6 +8,7 @@ RUN cargo chef prepare  --recipe-path recipe.json
 
 FROM prepare AS cook
 COPY --from=prepare /app/recipe.json recipe.json
+# x86_64-unknown-linux-musl
 RUN cargo chef cook --release --target aarch64-unknown-linux-musl --recipe-path recipe.json
 COPY . .
 RUN cargo build --release --target aarch64-unknown-linux-musl
