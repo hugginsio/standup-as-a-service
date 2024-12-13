@@ -3,55 +3,27 @@ kind: StandupGroup
 metadata:
   name: standupgroup-sample
 spec:
-  # Default values copied from <project_dir>/helm-charts/standupgroup/values.yaml
-  affinity: {}
-  autoscaling:
-    enabled: false
-    maxReplicas: 100
-    minReplicas: 1
-    targetCPUUtilizationPercentage: 80
-  fullnameOverride: ""
+  cron:
+    schedule: "*/1 * * * *"
+
+  config:
+    broker: rabbitmq.standup.svc.cluster.local
+    organization: "https://dev.azure.com/hugginsio/"
+    pat: if-this-was-real-it-would-be-a-secret-reference
+    wiql: "SELECT [System.Id], [System.Title], [System.State], [System.AssignedTo] FROM workitems WHERE [System.AssignedTo] = '&user;' ORDER BY [System.ChangedDate] DESC"
+
+  members:
+    - name: Kyle
+      id: Kyle Huggins <kyle@huggins.io>
+
   image:
+    repository: data-extractor
     pullPolicy: IfNotPresent
-    repository: nginx
-    tag: ""
-  imagePullSecrets: []
-  ingress:
-    annotations: {}
-    className: ""
-    enabled: false
-    hosts:
-    - host: chart-example.local
-      paths:
-      - path: /
-        pathType: ImplementationSpecific
-    tls: []
-  livenessProbe:
-    httpGet:
-      path: /
-      port: http
-  nameOverride: ""
-  nodeSelector: {}
-  podAnnotations: {}
-  podLabels: {}
-  podSecurityContext: {}
-  readinessProbe:
-    httpGet:
-      path: /
-      port: http
-  replicaCount: 1
-  resources: {}
-  securityContext: {}
-  service:
-    port: 80
-    type: ClusterIP
-  serviceAccount:
-    annotations: {}
-    automount: true
-    create: true
-    name: ""
-  tolerations: []
-  volumeMounts: []
-  volumes: []
-  
-  
+    tag: "local"
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      memory: 64Mi
