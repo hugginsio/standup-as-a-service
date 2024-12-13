@@ -13,7 +13,7 @@ members:
     id: Kyle Huggins <kyle@huggins.io>
 
 image:
-  repository: data-extractor
+  repository: hugginsio/standup-data-extractor:a95cee4
   pullPolicy: IfNotPresent
   tag: "local"
 
