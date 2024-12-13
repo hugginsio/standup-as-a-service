@@ -1,0 +1,23 @@
+# permissions for end users to view standupgroups.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: standup-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: standupgroup-viewer-role
+rules:
+- apiGroups:
+  - standup.kube.huggins.io
+  resources:
+  - standupgroups
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - standup.kube.huggins.io
+  resources:
+  - standupgroups/status
+  verbs:
+  - get

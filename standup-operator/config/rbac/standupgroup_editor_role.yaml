@@ -1,0 +1,27 @@
+# permissions for end users to edit standupgroups.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: standup-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: standupgroup-editor-role
+rules:
+- apiGroups:
+  - standup.kube.huggins.io
+  resources:
+  - standupgroups
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - standup.kube.huggins.io
+  resources:
+  - standupgroups/status
+  verbs:
+  - get

@@ -1,0 +1,4 @@
+## Append samples of your project ##
+resources:
+- standup_v1alpha1_standupgroup.yaml
+# +kubebuilder:scaffold:manifestskustomizesamples

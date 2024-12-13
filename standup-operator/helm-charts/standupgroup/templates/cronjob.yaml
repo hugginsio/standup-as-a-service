@@ -1,0 +1,37 @@
+{{- range $cfg := $.Values.members }}
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: "{{ $.Release.Name }}-{{ $cfg.name | lower}}"
+  labels:
+    app.kubernetes.io/managed-by: {{ $.Release.Service }}
+    app.kubernetes.io/version: {{ $.Chart.AppVersion | quote }}
+spec:
+  concurrencyPolicy: Forbid
+  schedule: "{{ $.Values.cron.schedule }}"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: {{ $.Chart.Name }}
+              image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
+              imagePullPolicy: "{{ $.Values.image.pullPolicy }}"
+              env:
+                - name: BROKER_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: rabbitmq
+                      key: rabbitmq-password
+                - name: USER_ID
+                  value: "{{ $cfg.id }}"
+              envFrom:
+                - configMapRef:
+                    name: "{{ $.Release.Name }}"
+                - secretRef:
+                    name: "{{ $.Release.Name }}"
+          restartPolicy: OnFailure
+
+{{- end }}

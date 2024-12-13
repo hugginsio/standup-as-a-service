@@ -6,6 +6,8 @@
 minikube start --nodes=1 --memory=8192 --addons=dashboard,default-storageclass,metrics-server,storage-provisioner
 helmfile apply --skip-diff-on-install --suppress-diff
 kubectl apply -f mongodb.yaml -n standup
+cd standup-operator
+operator-sdk olm install
 ```
 
 ## Expose

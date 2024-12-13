@@ -1,0 +1,25 @@
+cron:
+  schedule: "*/1 * * * *"
+
+config:
+  broker: rabbitmq.standup.svc.cluster.local
+  organization: "https://dev.azure.com/hugginsio/"
+  # NOTE: if this system wasn't a joke, this would be a secret reference
+  pat: replace-in-overlay
+  wiql: "SELECT [System.Id], [System.Title], [System.State], [System.AssignedTo] FROM workitems WHERE [System.AssignedTo] = '&user;' ORDER BY [System.ChangedDate] DESC"
+
+members:
+  - name: Kyle
+    id: Kyle Huggins <kyle@huggins.io>
+
+image:
+  repository: data-extractor
+  pullPolicy: IfNotPresent
+  tag: "local"
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    memory: 64Mi
