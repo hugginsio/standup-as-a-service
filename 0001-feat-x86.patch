@@ -1,0 +1,55 @@
+From 803f4824c933afd958cf888fe861120d6c2e6b10 Mon Sep 17 00:00:00 2001
+From: Kyle Huggins <kyle@huggins.io>
+Date: Fri, 13 Dec 2024 05:45:15 -0600
+Subject: [PATCH] feat: x86
+
+---
+ listener/Dockerfile    | 7 +++----
+ standup-api/Dockerfile | 7 +++----
+ 2 files changed, 6 insertions(+), 8 deletions(-)
+
+diff --git a/listener/Dockerfile b/listener/Dockerfile
+index b6e2cb6..1dc0a2c 100644
+--- a/listener/Dockerfile
++++ b/listener/Dockerfile
+@@ -8,13 +8,12 @@ RUN cargo chef prepare  --recipe-path recipe.json
+ 
+ FROM prepare AS cook
+ COPY --from=prepare /app/recipe.json recipe.json
+-# x86_64-unknown-linux-musl
+-RUN cargo chef cook --release --target aarch64-unknown-linux-musl --recipe-path recipe.json
++RUN cargo chef cook --release --target x86_64-unknown-linux-musl --recipe-path recipe.json
+ COPY . .
+-RUN cargo build --release --target aarch64-unknown-linux-musl
++RUN cargo build --release --target x86_64-unknown-linux-musl
+ 
+ FROM alpine:3.21.0 AS runtime
+ RUN apk add --no-cache catatonit
+-COPY --from=cook /app/target/aarch64-unknown-linux-musl/release/listener /usr/local/bin/listener
++COPY --from=cook /app/target/x86_64-unknown-linux-musl/release/listener /usr/local/bin/listener
+ USER nobody:nogroup
+ ENTRYPOINT ["/usr/bin/catatonit", "--", "/usr/local/bin/listener"]
+diff --git a/standup-api/Dockerfile b/standup-api/Dockerfile
+index d7de4cd..8425204 100644
+--- a/standup-api/Dockerfile
++++ b/standup-api/Dockerfile
+@@ -8,13 +8,12 @@ RUN cargo chef prepare  --recipe-path recipe.json
+ 
+ FROM prepare AS cook
+ COPY --from=prepare /app/recipe.json recipe.json
+-# x86_64-unknown-linux-musl
+-RUN cargo chef cook --release --target aarch64-unknown-linux-musl --recipe-path recipe.json
++RUN cargo chef cook --release --target x86_64-unknown-linux-musl --recipe-path recipe.json
+ COPY . .
+-RUN cargo build --release --target aarch64-unknown-linux-musl
++RUN cargo build --release --target x86_64-unknown-linux-musl
+ 
+ FROM alpine:3.21.0 AS runtime
+ RUN apk add --no-cache catatonit
+-COPY --from=cook /app/target/aarch64-unknown-linux-musl/release/standup-api /usr/local/bin/standup-api
++COPY --from=cook /app/target/x86_64-unknown-linux-musl/release/standup-api /usr/local/bin/standup-api
+ USER nobody:nogroup
+ ENTRYPOINT ["/usr/bin/catatonit", "--", "/usr/local/bin/standup-api"]
+-- 
+2.47.0
+
